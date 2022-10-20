@@ -1,40 +1,41 @@
 import {
-	Table,
-	Column,
-	Model,
-	HasMany,
-	Length,
+	Entity,
+	OneToMany,
+	PrimaryKey,
+	Property,
 	Unique,
-} from "sequelize-typescript";
+} from "@mikro-orm/core";
+import Order from "./order";
 import Product from "./product";
 
-@Table
-class Customer extends Model {
-	timestamps: true;
+@Entity()
+export default class Customer {
+	@PrimaryKey()
+	id!: number;
 
-	@Length({ msg: "Name must be longer than 3 characters", min: 3 })
-	@Column
-	name: string;
+	@Property()
+	createdAt: Date = new Date();
 
-	@Length({ msg: "Address must be longer than 5 characters", min: 5 })
-	@Column
-	address: string;
+	@Property({ onUpdate: () => new Date() })
+	updatedAt: Date = new Date();
 
-	@Length({ msg: "Address must be longer than 5 characters", min: 5 })
-	@Unique
-	@Column
-	email: string;
+	@Property()
+	name!: string;
 
-	@Length({
-		msg: "Phone must be longer than 8 characters and less than 15.",
-		min: 8,
-		max: 15,
-	})
-	@Column
-	phone: string;
+	@Property()
+	@Unique()
+	email!: string;
 
-	@HasMany(() => Product)
-	products: Product[];
+	@Property()
+	address!: string;
+
+	@Property()
+	@Unique()
+	phone!: string;
+
+	@OneToMany(() => Product, (product) => product.buyer)
+	ownedProducts!: Product[];
+
+	@OneToMany(() => Order, (order) => order.customers)
+	allOrders!: Order[];
 }
-
-export default Customer;

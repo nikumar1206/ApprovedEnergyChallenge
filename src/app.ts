@@ -1,31 +1,15 @@
+import { MikroORM } from "@mikro-orm/core";
+import "reflect-metadata"; // required for run-time type reflection
 import express, { Application } from "express";
-
-import { Sequelize } from "sequelize-typescript";
+import mikroOrmConfig from "./mikro-orm.config";
 
 const main = async (): Promise<void> => {
 	const port = process.env.PORT;
 	const app: Application = express();
 
-	const sequelize = new Sequelize({
-		database: "AEchallenge",
-		dialect: "postgres",
-		username: process.env.DB_USERNAME,
-		password: process.env.DB_PASSWORD,
-		models: [__dirname + "/models"],
-		repositoryMode: true,
-		pool: {
-			min: 0,
-			max: 5,
-			idle: 10000,
-		},
-	});
-	try {
-		await sequelize.authenticate();
-		console.log("Connected to PostgreSQL database!");
-	} catch (error) {
-		console.error("Unable to connect to the database:", error);
-		return;
-	}
+	const orm = await MikroORM.init(mikroOrmConfig);
+
+	// await orm.getMigrator().up(); // run migrations
 	app.get("/", (_, res) => {
 		res.send("Hello World!");
 	});

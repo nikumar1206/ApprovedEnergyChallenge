@@ -1,44 +1,32 @@
-import {
-	Table,
-	Column,
-	Model,
-	BelongsTo,
-	ForeignKey,
-	Length,
-	Unique,
-	Is,
-} from "sequelize-typescript";
+import { ManyToOne, OneToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import Customer from "./customer";
+import Order from "./order";
 
-@Table
-class Product extends Model {
-	timestamps: true;
+export default class Product {
+	@PrimaryKey()
+	id!: number;
 
-	@Length({ msg: "Name must be longer than 3 characters", min: 3 })
-	@Unique
-	@Column
-	name: string;
+	@Property()
+	createdAt: Date = new Date();
 
-	@Column
-	type: string;
+	@Property({ onUpdate: () => new Date() })
+	updatedAt: Date = new Date();
 
-	@Column
-	price: number;
+	@Property()
+	name!: string;
 
-	@Is("DateValidation", (expDate) => {
-		if (expDate < Date.now()) {
-			throw new Error("Expiration date cannot be before the current date");
-		}
-	})
-	@Column
-	expiration: Date;
+	@Property()
+	type!: string;
 
-	@ForeignKey(() => Customer)
-	@Column
-	customerId: number;
+	@Property()
+	price!: number;
 
-	@BelongsTo(() => Customer)
-	purchasers: Customer[];
+	@Property()
+	expiration!: Date;
+
+	@ManyToOne(() => Customer)
+	buyer!: Customer;
+
+	@OneToOne(() => Order)
+	order!: Order;
 }
-
-export default Product;

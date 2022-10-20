@@ -1,35 +1,34 @@
-import {
-	Table,
-	Column,
-	Model,
-	BelongsTo,
-	ForeignKey,
-} from "sequelize-typescript";
 import Customer from "./customer";
 import Product from "./product";
 
-@Table
-class Order extends Model {
-	timestamps: true;
+import {
+	Entity,
+	ManyToOne,
+	OneToOne,
+	PrimaryKey,
+	Property,
+} from "@mikro-orm/core";
 
-	@Column
-	quantity: Number;
+@Entity()
+export default class Order {
+	@PrimaryKey()
+	id!: number;
 
-	@Column
-	purchaseDate: Date;
+	@Property()
+	createdAt: Date = new Date();
 
-	@ForeignKey(() => Customer)
-	@Column
-	customerId: number;
+	@Property({ onUpdate: () => new Date() })
+	updatedAt: Date = new Date();
 
-	@ForeignKey(() => Product)
-	@Column
-	productId: number;
+	@Property()
+	quantity!: number;
 
-	@BelongsTo(() => Customer)
-	customer: Customer;
+	@Property()
+	purchaseDate!: Date;
 
-	@BelongsTo(() => Product)
-	product: Product;
+	@ManyToOne(() => Customer)
+	customers!: Customer;
+
+	@OneToOne(() => Product, (product) => product.order)
+	product!: Product;
 }
-export default Order;
