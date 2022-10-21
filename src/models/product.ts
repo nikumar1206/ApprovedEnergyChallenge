@@ -1,8 +1,18 @@
-import { ManyToOne, OneToOne, PrimaryKey, Property } from "@mikro-orm/core";
-import Customer from "./customer";
-import Order from "./order";
+import {
+	Entity,
+	ManyToOne,
+	OneToOne,
+	OptionalProps,
+	PrimaryKey,
+	Property,
+	Unique,
+} from "@mikro-orm/core";
+import Customer from "./Customer";
+import Order from "./Order";
 
+@Entity()
 export default class Product {
+	[OptionalProps]?: "createdAt" | "updatedAt";
 	@PrimaryKey()
 	id!: number;
 
@@ -12,6 +22,7 @@ export default class Product {
 	@Property({ onUpdate: () => new Date() })
 	updatedAt: Date = new Date();
 
+	@Unique()
 	@Property()
 	name!: string;
 

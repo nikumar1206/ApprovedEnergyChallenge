@@ -1,15 +1,18 @@
 import {
+	Collection,
 	Entity,
 	OneToMany,
+	OptionalProps,
 	PrimaryKey,
 	Property,
 	Unique,
 } from "@mikro-orm/core";
-import Order from "./order";
-import Product from "./product";
+import Order from "./Order";
+import Product from "./Product";
 
 @Entity()
 export default class Customer {
+	[OptionalProps]?: "createdAt" | "updatedAt";
 	@PrimaryKey()
 	id!: number;
 
@@ -34,8 +37,8 @@ export default class Customer {
 	phone!: string;
 
 	@OneToMany(() => Product, (product) => product.buyer)
-	ownedProducts!: Product[];
+	ownedProducts = new Collection<Product>(this);
 
 	@OneToMany(() => Order, (order) => order.customers)
-	allOrders!: Order[];
+	allOrders = new Collection<Order>(this);
 }

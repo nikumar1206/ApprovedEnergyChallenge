@@ -1,16 +1,18 @@
-import Customer from "./customer";
-import Product from "./product";
-
 import {
 	Entity,
 	ManyToOne,
 	OneToOne,
+	OptionalProps,
 	PrimaryKey,
 	Property,
 } from "@mikro-orm/core";
+import Customer from "./Customer";
+import Product from "./Product";
 
 @Entity()
 export default class Order {
+	[OptionalProps]?: "createdAt" | "updatedAt";
+
 	@PrimaryKey()
 	id!: number;
 

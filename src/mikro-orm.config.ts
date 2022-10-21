@@ -1,9 +1,9 @@
 import path from "path";
 import { MikroORM, ReflectMetadataProvider } from "@mikro-orm/core";
 import { __prod__ } from "./constants";
-import Customer from "./models/customer";
-import Order from "./models/order";
-import Product from "./models/product";
+import Customer from "./models/Customer";
+import Order from "./models/Order";
+import Product from "./models/Product";
 
 export default {
 	migrations: {
