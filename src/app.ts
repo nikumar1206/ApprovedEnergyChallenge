@@ -20,12 +20,16 @@ const main = async (): Promise<void> => {
 	const port = process.env.PORT;
 	const app: Application = express();
 	app.use(bodyParser.urlencoded({ extended: false }));
+
 	DI.orm = await MikroORM.init(mikroOrmConfig);
 	DI.em = DI.orm.em.fork();
 	DI.customerRepository = DI.orm.em.fork().getRepository(Customer);
 	DI.productRepository = DI.orm.em.fork().getRepository(Product);
 	DI.orderRepository = DI.orm.em.fork().getRepository(Order);
-	DI.orm.getMigrator().up(); // run migrations
+
+	// const generator = DI.orm.getSchemaGenerator();
+	// await generator.updateSchema();
+	// DI.orm.getMigrator().up(); // run migrations
 
 	app.get("/", (_, res) => {
 		res.send("Hello World!");
