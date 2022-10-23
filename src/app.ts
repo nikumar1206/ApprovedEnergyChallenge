@@ -3,10 +3,11 @@ import { EntityManager, EntityRepository, MikroORM } from "@mikro-orm/core";
 import bodyParser from "body-parser";
 import express, { Application } from "express";
 import mikroOrmConfig from "./mikro-orm.config";
-import customerRouter from "./routes/api/customer";
+import customerRouter from "./routes/api/customerRoutes";
 import Customer from "./models/Customer";
 import Product from "./models/Product";
 import Order from "./models/Order";
+import productRouter from "./routes/api/productRoutes";
 
 export const DI = {} as {
 	orm: MikroORM;
@@ -23,19 +24,20 @@ const main = async (): Promise<void> => {
 
 	DI.orm = await MikroORM.init(mikroOrmConfig);
 	DI.em = DI.orm.em.fork();
-	DI.customerRepository = DI.orm.em.fork().getRepository(Customer);
-	DI.productRepository = DI.orm.em.fork().getRepository(Product);
-	DI.orderRepository = DI.orm.em.fork().getRepository(Order);
+	DI.customerRepository = DI.em.getRepository(Customer);
+	DI.productRepository = DI.em.getRepository(Product);
+	DI.orderRepository = DI.em.getRepository(Order);
 
-	// const generator = DI.orm.getSchemaGenerator();
-	// await generator.updateSchema();
-	// DI.orm.getMigrator().up(); // run migrations
+	const generator = DI.orm.getSchemaGenerator();
+	await generator.updateSchema();
+	DI.orm.getMigrator().up(); // run migrations
 
 	app.get("/", (_, res) => {
 		res.send("Hello World!");
 	});
 
 	app.use("/api/customers", customerRouter);
+	app.use("/api/products", productRouter);
 	app.listen(port, () => console.log(`🚀 Server is running on port ${port}!`));
 };
 

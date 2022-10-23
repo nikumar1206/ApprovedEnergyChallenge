@@ -31,6 +31,6 @@ export default class Order {
 	@ManyToOne(() => Customer)
 	customers!: Customer;
 
-	@OneToOne(() => Product, (product) => product.order)
+	@OneToOne(() => Product)
 	product!: Product;
 }

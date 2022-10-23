@@ -35,9 +35,9 @@ export default class Product {
 	@Property()
 	expiration!: Date;
 
-	@ManyToOne(() => Customer)
-	buyer!: Customer;
+	@ManyToOne(() => Customer, { nullable: true })
+	buyer?: Customer;
 
-	@OneToOne(() => Order)
-	order!: Order;
+	@OneToOne(() => Order, (order) => order.product, { nullable: true })
+	order?: Order;
 }

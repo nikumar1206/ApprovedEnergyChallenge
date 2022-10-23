@@ -10,7 +10,6 @@ export default {
 		path: path.join(__dirname, "migrations"),
 		pathTs: path.join(path.resolve(), "src", "migrations"),
 		glob: "!(*.d).{js,ts}", // matches migration files (all .js and .ts files, but not .d.ts)
-		snapshot: false,
 	},
 	metadataProvider: ReflectMetadataProvider,
 	entities: [Product, Customer, Order],
