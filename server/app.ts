@@ -8,6 +8,7 @@ import Customer from "./models/Customer";
 import Product from "./models/Product";
 import Order from "./models/Order";
 import productRouter from "./routes/api/productRoutes";
+import orderRouter from "./routes/api/orderRoutes";
 
 export const DI = {} as {
 	orm: MikroORM;
@@ -38,6 +39,7 @@ const main = async (): Promise<void> => {
 
 	app.use("/api/customers", customerRouter);
 	app.use("/api/products", productRouter);
+	app.use("/api/orders", orderRouter);
 	app.listen(port, () => console.log(`🚀 Server is running on port ${port}!`));
 };
 

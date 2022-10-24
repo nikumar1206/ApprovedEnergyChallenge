@@ -7,7 +7,7 @@ interface productData {
 	expiration: Date;
 }
 
-export const fetchAllproducts = async () => {
+export const fetchAllProducts = async () => {
 	try {
 		const data = await axios.get("/api/products");
 		return data;

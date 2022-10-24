@@ -4,7 +4,6 @@ const customerRouter = Router();
 
 customerRouter.get("/", async (_, res) => {
 	const customers = await DI.customerRepository.findAll();
-	console.log(customers);
 	return res.json(customers);
 });
 

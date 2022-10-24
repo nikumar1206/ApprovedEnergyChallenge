@@ -4,7 +4,6 @@ const productRouter = Router();
 
 productRouter.get("/", async (_, res) => {
 	const products = await DI.productRepository.findAll();
-	console.log(products);
 	return res.json(products);
 });
 
@@ -13,8 +12,6 @@ productRouter.post("/new", async (req, res) => {
 	try {
 		await DI.em.persistAndFlush(newproduct);
 	} catch (error) {
-		console.log(error);
-
 		return res.json(error).status(400);
 	}
 	return res.json(newproduct).status(400);

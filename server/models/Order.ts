@@ -11,16 +11,16 @@ import Product from "./Product";
 
 @Entity()
 export default class Order {
-	[OptionalProps]?: "createdAt" | "updatedAt";
+	[OptionalProps]?: "createdAt" | "updatedAt" | "productId" | "customerId";
 
 	@PrimaryKey()
 	id!: number;
 
 	@Property()
-	createdAt: Date = new Date();
+	createdAt?: Date = new Date();
 
 	@Property({ onUpdate: () => new Date() })
-	updatedAt: Date = new Date();
+	updatedAt?: Date = new Date();
 
 	@Property()
 	quantity!: number;
@@ -29,7 +29,7 @@ export default class Order {
 	purchaseDate!: Date;
 
 	@ManyToOne(() => Customer)
-	customers!: Customer;
+	customer!: Customer;
 
 	@OneToOne(() => Product)
 	product!: Product;

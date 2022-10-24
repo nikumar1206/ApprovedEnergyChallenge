@@ -8,7 +8,7 @@ const CustomerComponent = () => {
 	}, []);
 	return (
 		<>
-			<h1>{JSON.stringify(data, null, 2)}</h1>
+			<pre>{JSON.stringify(data, null, 2)}</pre>
 		</>
 	);
 };

@@ -39,6 +39,6 @@ export default class Customer {
 	@OneToMany(() => Product, (product) => product.buyer)
 	ownedProducts = new Collection<Product>(this);
 
-	@OneToMany(() => Order, (order) => order.customers)
+	@OneToMany(() => Order, (order) => order.customer)
 	allOrders = new Collection<Order>(this);
 }

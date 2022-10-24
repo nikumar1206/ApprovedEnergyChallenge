@@ -1,38 +1,47 @@
 import { Router } from "express";
 import DI from "../../app";
-const customerRouter = Router();
+const orderRouter = Router();
 
-customerRouter.get("/", async (_, res) => {
-	const customers = await DI.customerRepository.findAll();
-	console.log(customers);
-	return res.json(customers);
+orderRouter.get("/", async (_, res) => {
+	const orders = await DI.orderRepository.findAll();
+	return res.json(orders);
 });
 
-customerRouter.post("/new", async (req, res) => {
-	const newCustomer = DI.customerRepository.create(req.body);
+orderRouter.post("/new", async (req, res) => {
+	const newOrder = DI.orderRepository.create(req.body);
+	console.log(newOrder);
 
-	await DI.em.persistAndFlush(newCustomer);
-	return res.json(newCustomer).status(400);
+	newOrder.customer = await DI.customerRepository.findOneOrFail({
+		id: req.body.customerId,
+	});
+
+	newOrder.product = await DI.productRepository.findOneOrFail({
+		id: req.body.productId,
+	});
+
+	await DI.em.persistAndFlush(newOrder);
+	return res.json(newOrder).status(400);
 });
 
-customerRouter.get("/:id", async (req, res) => {
-	const customer = await DI.customerRepository.findOne({
+orderRouter.get("/:id", async (req, res) => {
+	const customer = await DI.orderRepository.findOne({
 		id: parseInt(req.params.id),
 	});
 	return res.json(customer).status(400);
 });
 
-customerRouter.patch("/:id", async (req, res) => {
-	const customer = await DI.customerRepository.findOne({
+orderRouter.patch("/:id", async (req, res) => {
+	const customer = await DI.orderRepository.findOne({
 		id: parseInt(req.params.id),
 	});
 	DI.em.assign(customer!, { ...req.body }, { mergeObjects: true });
 	await DI.em.flush();
 	return res.json("Successfully updated customer!").status(400);
 });
-customerRouter.delete("/:id", async (req, res) => {
-	await DI.customerRepository.nativeDelete({ id: parseInt(req.params.id) });
+
+orderRouter.delete("/:id", async (req, res) => {
+	await DI.orderRepository.nativeDelete({ id: parseInt(req.params.id) });
 	return res.json("Successfully deleted customer!").status(400);
 });
 
-export default customerRouter;
+export default orderRouter;
