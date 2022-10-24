@@ -3,7 +3,9 @@ import DI from "../../app";
 const productRouter = Router();
 
 productRouter.get("/", async (_, res) => {
-	const products = await DI.productRepository.findAll();
+	const products = await DI.productRepository.findAll({
+		populate: ["buyer"],
+	});
 	return res.json(products);
 });
 

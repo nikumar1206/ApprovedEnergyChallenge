@@ -2,26 +2,15 @@ import {
 	Collection,
 	Entity,
 	OneToMany,
-	OptionalProps,
-	PrimaryKey,
 	Property,
 	Unique,
 } from "@mikro-orm/core";
+import { BaseEntity } from "./Base";
 import Order from "./Order";
 import Product from "./Product";
 
 @Entity()
-export default class Customer {
-	[OptionalProps]?: "createdAt" | "updatedAt";
-	@PrimaryKey()
-	id!: number;
-
-	@Property()
-	createdAt: Date = new Date();
-
-	@Property({ onUpdate: () => new Date() })
-	updatedAt: Date = new Date();
-
+export default class Customer extends BaseEntity {
 	@Property()
 	name!: string;
 
@@ -39,6 +28,6 @@ export default class Customer {
 	@OneToMany(() => Product, (product) => product.buyer)
 	ownedProducts = new Collection<Product>(this);
 
-	@OneToMany(() => Order, (order) => order.customer)
+	@OneToMany(() => Order, (order) => order.buyer)
 	allOrders = new Collection<Order>(this);
 }

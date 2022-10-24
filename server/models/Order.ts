@@ -1,27 +1,10 @@
-import {
-	Entity,
-	ManyToOne,
-	OneToOne,
-	OptionalProps,
-	PrimaryKey,
-	Property,
-} from "@mikro-orm/core";
+import { Entity, ManyToOne, OneToOne, Property } from "@mikro-orm/core";
+import { BaseEntity } from "./Base";
 import Customer from "./Customer";
 import Product from "./Product";
 
 @Entity()
-export default class Order {
-	[OptionalProps]?: "createdAt" | "updatedAt" | "productId" | "customerId";
-
-	@PrimaryKey()
-	id!: number;
-
-	@Property()
-	createdAt?: Date = new Date();
-
-	@Property({ onUpdate: () => new Date() })
-	updatedAt?: Date = new Date();
-
+export default class Order extends BaseEntity {
 	@Property()
 	quantity!: number;
 
@@ -29,7 +12,7 @@ export default class Order {
 	purchaseDate!: Date;
 
 	@ManyToOne(() => Customer)
-	customer!: Customer;
+	buyer!: Customer;
 
 	@OneToOne(() => Product)
 	product!: Product;

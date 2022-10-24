@@ -3,7 +3,9 @@ import DI from "../../app";
 const customerRouter = Router();
 
 customerRouter.get("/", async (_, res) => {
-	const customers = await DI.customerRepository.findAll();
+	const customers = await DI.customerRepository.findAll({
+		populate: ["allOrders"],
+	});
 	return res.json(customers);
 });
 

@@ -9,15 +9,17 @@ orderRouter.get("/", async (_, res) => {
 
 orderRouter.post("/new", async (req, res) => {
 	const newOrder = DI.orderRepository.create(req.body);
-	console.log(newOrder);
 
-	newOrder.customer = await DI.customerRepository.findOneOrFail({
-		id: req.body.customerId,
+	newOrder.buyer = await DI.customerRepository.findOneOrFail({
+		id: req.body.buyerId,
 	});
 
-	newOrder.product = await DI.productRepository.findOneOrFail({
+	const product = await DI.productRepository.findOneOrFail({
 		id: req.body.productId,
 	});
+	newOrder.product = product;
+
+	product.buyer = newOrder.buyer;
 
 	await DI.em.persistAndFlush(newOrder);
 	return res.json(newOrder).status(400);

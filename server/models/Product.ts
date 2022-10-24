@@ -1,27 +1,10 @@
-import {
-	Entity,
-	ManyToOne,
-	OneToOne,
-	OptionalProps,
-	PrimaryKey,
-	Property,
-	Unique,
-} from "@mikro-orm/core";
+import { Entity, ManyToOne, OneToOne, Property, Unique } from "@mikro-orm/core";
+import { BaseEntity } from "./Base";
 import Customer from "./Customer";
 import Order from "./Order";
 
 @Entity()
-export default class Product {
-	[OptionalProps]?: "createdAt" | "updatedAt";
-	@PrimaryKey()
-	id!: number;
-
-	@Property()
-	createdAt: Date = new Date();
-
-	@Property({ onUpdate: () => new Date() })
-	updatedAt: Date = new Date();
-
+export default class Product extends BaseEntity {
 	@Unique()
 	@Property()
 	name!: string;

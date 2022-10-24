@@ -4,6 +4,7 @@ import { __prod__ } from "./constants";
 import Customer from "./models/Customer";
 import Order from "./models/Order";
 import Product from "./models/Product";
+import { BaseEntity } from "./models/Base";
 
 export default {
 	migrations: {
@@ -12,7 +13,7 @@ export default {
 		glob: "!(*.d).{js,ts}", // matches migration files (all .js and .ts files, but not .d.ts)
 	},
 	metadataProvider: ReflectMetadataProvider,
-	entities: [Product, Customer, Order],
+	entities: [BaseEntity, Product, Customer, Order],
 	dbName: "ApprovedEnergyChallenge",
 	type: "postgresql",
 	debug: true,
