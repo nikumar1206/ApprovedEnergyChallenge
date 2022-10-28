@@ -22,6 +22,9 @@ const main = async (): Promise<void> => {
 	app.use("/api/orders", orderRouter);
 
 	app.listen(port, () => console.log(`🚀 Server is running on port ${port}!`));
+	if (process.execArgv.length === 0) {
+		process.exit(0);
+	}
 };
 
 main();
