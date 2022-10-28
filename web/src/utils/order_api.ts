@@ -1,8 +1,10 @@
 import axios from "axios";
 
 interface orderData {
-	quantity: number;
-	purchaseDate: Date;
+	quantity: string;
+	purchaseDate: string;
+	buyerId: string;
+	productId: string;
 }
 
 export const fetchAllOrders = async () => {
@@ -25,7 +27,7 @@ export const fetchOrder = async (id: number) => {
 
 export const createOrder = async (order: orderData) => {
 	try {
-		const data = await axios.post(`/api/orders/`, order);
+		const data = await axios.post(`/api/orders/new`, order);
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -34,16 +36,16 @@ export const createOrder = async (order: orderData) => {
 
 export const updateOrder = async (id: number, order: orderData) => {
 	try {
-		const data = await axios.post(`/api/orders/${id}`, order);
+		const data = await axios.patch(`/api/orders/${id}`, order);
 		return data;
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const deleteorder = async (id: number) => {
+export const deleteOrder = async (id: number) => {
 	try {
-		const data = await axios.post(`/api/orders/${id}`);
+		const data = await axios.delete(`/api/orders/${id}`);
 		return data;
 	} catch (error) {
 		console.log(error);

@@ -12,10 +12,15 @@ export default {
 		pathTs: path.join(path.resolve(), "src", "migrations"),
 		glob: "!(*.d).{js,ts}", // matches migration files (all .js and .ts files, but not .d.ts)
 	},
+	seeder: {
+		path: path.join(__dirname, "seeders"),
+		pathTs: path.join(path.resolve(), "src", "seeders"),
+		glob: "!(*.d).{js,ts}",
+	},
 	metadataProvider: ReflectMetadataProvider,
 	entities: [BaseEntity, Product, Customer, Order],
-	dbName: "ApprovedEnergyChallenge",
-	type: "postgresql",
-	debug: true,
+	dbName: process.env.DB_NAME,
+	type: process.env.DB_TYPE,
+	debug: !__prod__,
 	snapshot: false,
 } as Parameters<typeof MikroORM.init>[0];

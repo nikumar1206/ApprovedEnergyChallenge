@@ -1,4 +1,51 @@
+html,
+body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  overflow-x: hidden;
+}
+
 .navbar-container {
   display: flex;
   gap: 1rem;
+}
+
+table {
+
+  border-collapse: collapse;
+  width: 100vw;
+}
+
+table td,
+table th {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: rgb(232, 232, 232);
+}
+
+table th {
+  padding: 0.5rem 0;
+  background-color: #089fc8;
+  color: white;
+  text-align: center;
+}
+
+
+/* for new customer form */
+
+.add-customer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+button {
+  width: 200px;
+  height: 50px;
 }

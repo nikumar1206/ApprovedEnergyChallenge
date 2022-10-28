@@ -1,15 +1,17 @@
 import { Router } from "express";
-import DI from "../../app";
+import { DI } from "../../setupDB";
 const customerRouter = Router();
 
 customerRouter.get("/", async (_, res) => {
 	const customers = await DI.customerRepository.findAll({
-		populate: ["allOrders"],
+		populate: ["allOrders", "ownedProducts"],
 	});
 	return res.json(customers);
 });
 
 customerRouter.post("/new", async (req, res) => {
+	console.log("blooo", req.body);
+
 	const newCustomer = DI.customerRepository.create(req.body);
 
 	await DI.em.persistAndFlush(newCustomer);

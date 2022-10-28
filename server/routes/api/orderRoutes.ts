@@ -1,14 +1,19 @@
 import { Router } from "express";
-import DI from "../../app";
+
+import Order from "../../models/Order";
+import { DI } from "../../setupDB";
 const orderRouter = Router();
 
 orderRouter.get("/", async (_, res) => {
-	const orders = await DI.orderRepository.findAll();
+	const orders = await DI.orderRepository.findAll({
+		populate: ["buyer"],
+		filters: ["createdAt", "updatedAt"],
+	});
 	return res.json(orders);
 });
 
 orderRouter.post("/new", async (req, res) => {
-	const newOrder = DI.orderRepository.create(req.body);
+	const newOrder: Order = DI.orderRepository.create(req.body);
 
 	newOrder.buyer = await DI.customerRepository.findOneOrFail({
 		id: req.body.buyerId,
@@ -17,9 +22,8 @@ orderRouter.post("/new", async (req, res) => {
 	const product = await DI.productRepository.findOneOrFail({
 		id: req.body.productId,
 	});
-	newOrder.product = product;
-
 	product.buyer = newOrder.buyer;
+	newOrder.product = product;
 
 	await DI.em.persistAndFlush(newOrder);
 	return res.json(newOrder).status(400);

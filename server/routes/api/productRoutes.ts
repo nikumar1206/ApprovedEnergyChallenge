@@ -1,10 +1,11 @@
 import { Router } from "express";
-import DI from "../../app";
+import { DI } from "../../setupDB";
 const productRouter = Router();
 
 productRouter.get("/", async (_, res) => {
 	const products = await DI.productRepository.findAll({
-		populate: ["buyer"],
+		populate: ["buyer.id", "buyer.name"],
+		filters: ["createdAt", "updatedAt"],
 	});
 	return res.json(products);
 });

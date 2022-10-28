@@ -4,7 +4,7 @@ interface productData {
 	name: string;
 	type: string;
 	price: string;
-	expiration: Date;
+	expiration: string;
 }
 
 export const fetchAllProducts = async () => {
@@ -27,7 +27,7 @@ export const fetchProduct = async (id: number) => {
 
 export const createProduct = async (product: productData) => {
 	try {
-		const data = await axios.post(`/api/products/`, product);
+		const data = await axios.post(`/api/products/new`, product);
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -36,7 +36,7 @@ export const createProduct = async (product: productData) => {
 
 export const updateProduct = async (id: number, product: productData) => {
 	try {
-		const data = await axios.post(`/api/products/${id}`, product);
+		const data = await axios.patch(`/api/products/${id}`, product);
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -45,7 +45,7 @@ export const updateProduct = async (id: number, product: productData) => {
 
 export const deleteProduct = async (id: number) => {
 	try {
-		const data = await axios.post(`/api/products/${id}`);
+		const data = await axios.delete(`/api/products/${id}`);
 		return data;
 	} catch (error) {
 		console.log(error);
