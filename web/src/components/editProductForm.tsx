@@ -29,8 +29,9 @@ const EditProductForm = () => {
 			navigate("/products")
 		);
 	};
-	const handleDelete = () => {
-		deleteProduct(parseInt(id!)).then(() => navigate("/customers"));
+	const handleDelete = async (e: React.SyntheticEvent) => {
+		e.preventDefault();
+		deleteProduct(parseInt(id!)).then(() => navigate("/products"));
 	};
 	return (
 		<>

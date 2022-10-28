@@ -7,11 +7,10 @@ import productRouter from "./routes/api/productRoutes";
 import orderRouter from "./routes/api/orderRoutes";
 import setupDB from "./setupDB";
 
-// allows us to export our entity manager so it can be used in our routes
-
 const main = async (): Promise<void> => {
 	const port = process.env.PORT;
 	const app: Application = express();
+
 	app.use(cors());
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(bodyParser.json());

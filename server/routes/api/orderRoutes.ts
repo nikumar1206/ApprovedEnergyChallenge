@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-import Order from "../../models/Order";
 import { DI } from "../../setupDB";
 const orderRouter = Router();
 
@@ -13,7 +12,8 @@ orderRouter.get("/", async (_, res) => {
 });
 
 orderRouter.post("/new", async (req, res) => {
-	const newOrder: Order = DI.orderRepository.create(req.body);
+	const newOrder = DI.orderRepository.create(req.body);
+	console.log(newOrder);
 
 	newOrder.buyer = await DI.customerRepository.findOneOrFail({
 		id: req.body.buyerId,
@@ -30,24 +30,29 @@ orderRouter.post("/new", async (req, res) => {
 });
 
 orderRouter.get("/:id", async (req, res) => {
-	const customer = await DI.orderRepository.findOne({
+	const order = await DI.orderRepository.findOne({
 		id: parseInt(req.params.id),
 	});
-	return res.json(customer).status(400);
+	return res.json(order).status(400);
 });
 
 orderRouter.patch("/:id", async (req, res) => {
-	const customer = await DI.orderRepository.findOne({
+	const order = await DI.orderRepository.findOne({
 		id: parseInt(req.params.id),
 	});
-	DI.em.assign(customer!, { ...req.body }, { mergeObjects: true });
+	DI.em.assign(order!, { ...req.body }, { mergeObjects: true });
 	await DI.em.flush();
-	return res.json("Successfully updated customer!").status(400);
+	return res.json("Successfully updated order!").status(400);
 });
 
 orderRouter.delete("/:id", async (req, res) => {
-	await DI.orderRepository.nativeDelete({ id: parseInt(req.params.id) });
-	return res.json("Successfully deleted customer!").status(400);
+	const order = await DI.orderRepository.findOne({
+		id: parseInt(req.params.id),
+	});
+	console.log(order);
+
+	await DI.orderRepository.removeAndFlush(order!);
+	return res.json("Successfully deleted order!").status(400);
 });
 
 export default orderRouter;

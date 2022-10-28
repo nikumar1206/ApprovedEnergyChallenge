@@ -74,7 +74,7 @@ const EditCustomerForm = () => {
 					/>
 				</label>
 
-				<button type="submit">Save Customer</button>
+				<button type="submit">Update Customer</button>
 				<button type="button" onClick={handleDelete}>
 					Delete Customer
 				</button>

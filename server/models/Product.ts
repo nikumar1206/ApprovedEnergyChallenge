@@ -1,4 +1,10 @@
-import { Entity, ManyToOne, OneToOne, Property, Unique } from "@mikro-orm/core";
+import {
+	Entity,
+	ManyToOne,
+	OneToMany,
+	Property,
+	Unique,
+} from "@mikro-orm/core";
 import { BaseEntity } from "./Base";
 import Customer from "./Customer";
 import Order from "./Order";
@@ -21,6 +27,9 @@ export default class Product extends BaseEntity {
 	@ManyToOne(() => Customer, { nullable: true })
 	buyer?: Customer;
 
-	@OneToOne(() => Order, (order) => order.product, { nullable: true })
+	@OneToMany(() => Order, (order) => order.product, {
+		nullable: true,
+		orphanRemoval: true,
+	})
 	order?: Order;
 }

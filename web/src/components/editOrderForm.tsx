@@ -1,3 +1,4 @@
+import e from "cors";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteOrder, fetchOrder, updateOrder } from "../utils/order_api";
@@ -7,8 +8,8 @@ const EditOrderForm = () => {
 	const [orderData, setorderData] = useState({
 		quantity: "",
 		purchaseDate: "",
-		buyerId: "",
-		productId: "",
+		buyer: { id: "n/a" },
+		product: "",
 	});
 	useEffect(() => {
 		fetchOrder(parseInt(id!)).then((res) => setorderData(res!.data));
@@ -21,20 +22,22 @@ const EditOrderForm = () => {
 		e.preventDefault();
 		await updateOrder(parseInt(id!), orderData).then(() => navigate("/orders"));
 	};
-	const handleDelete = () => {
+	const handleDelete = async (e: React.SyntheticEvent) => {
+		e.preventDefault();
 		deleteOrder(parseInt(id!)).then(() => navigate("/orders"));
 	};
 
 	return (
 		<>
 			<h1>Edit order id: {id}</h1>
+			{console.log(orderData)}
 			<form className="add-customer-form" onSubmit={handleSubmit}>
 				<label>
 					Quantity
 					<input
 						type="text"
 						value={orderData.quantity}
-						onChange={updateField("name")}
+						onChange={updateField("quantity")}
 					/>
 				</label>
 				<label>
@@ -42,28 +45,28 @@ const EditOrderForm = () => {
 					<input
 						type="text"
 						value={orderData.purchaseDate}
-						onChange={updateField("type")}
+						onChange={updateField("purchaseDate")}
 					/>
 				</label>
 				<label>
 					Buyer ID
 					<input
 						type="text"
-						value={orderData.buyerId}
-						onChange={updateField("price")}
+						value={orderData.buyer?.id}
+						onChange={updateField("buyerId")}
 					/>
 				</label>
 				<label>
 					Product ID
 					<input
 						type="text"
-						value={orderData.productId}
-						onChange={updateField("expiration")}
+						value={orderData.product}
+						onChange={updateField("productId")}
 					/>
 				</label>
 
 				<button type="submit">Edit Order!</button>
-				<button type="button" onSubmit={handleDelete}>
+				<button type="button" onClick={handleDelete}>
 					Delete Order
 				</button>
 			</form>

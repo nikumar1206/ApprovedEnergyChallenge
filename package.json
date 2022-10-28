@@ -8,6 +8,8 @@
 		"watch": "tsc -w",
 		"start": "dist/app.js",
 		"server": "nodemon -r dotenv/config dist/app.js",
+		"preinstall": "npm --prefix ./web install ./web",
+		"postinstall": "mikro-orm database:create && mikro-orm migration:create && mikro-orm migration:up && mikro-orm seeder:run",
 		"dev": "concurrently \"npm run watch\" \"npm run server\" \"npm run dev --prefix web\""
 	},
 	"keywords": [],

@@ -29,6 +29,7 @@ const NewProductForm = () => {
 						type="text"
 						value={productData.name}
 						onChange={updateField("name")}
+						required
 					/>
 				</label>
 				<label>
@@ -37,6 +38,7 @@ const NewProductForm = () => {
 						type="text"
 						value={productData.type}
 						onChange={updateField("type")}
+						required
 					/>
 				</label>
 				<label>
@@ -45,6 +47,7 @@ const NewProductForm = () => {
 						type="text"
 						value={productData.price}
 						onChange={updateField("price")}
+						required
 					/>
 				</label>
 				<label>
@@ -53,6 +56,7 @@ const NewProductForm = () => {
 						type="text"
 						value={productData.expiration}
 						onChange={updateField("expiration")}
+						required
 					/>
 				</label>
 

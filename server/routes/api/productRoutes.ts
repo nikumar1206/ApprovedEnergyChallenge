@@ -50,7 +50,7 @@ productRouter.delete("/:id", async (req, res) => {
 		const product = await DI.productRepository.findOneOrFail({
 			id: parseInt(req.params.id),
 		});
-		await DI.productRepository.nativeDelete(product);
+		await DI.productRepository.removeAndFlush(product);
 	} catch (error) {
 		return res.json({
 			error: `Could not find a product with an id of ${req.params.id}`,

@@ -34,7 +34,7 @@ export const createOrder = async (order: orderData) => {
 	}
 };
 
-export const updateOrder = async (id: number, order: orderData) => {
+export const updateOrder = async (id: number, order: any) => {
 	try {
 		const data = await axios.patch(`/api/orders/${id}`, order);
 		return data;

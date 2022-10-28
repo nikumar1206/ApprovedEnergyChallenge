@@ -28,7 +28,7 @@ const NewOrderForm = () => {
 					<input
 						type="text"
 						value={orderData.quantity}
-						onChange={updateField("name")}
+						onChange={updateField("quantity")}
 					/>
 				</label>
 				<label>
@@ -36,7 +36,7 @@ const NewOrderForm = () => {
 					<input
 						type="text"
 						value={orderData.purchaseDate}
-						onChange={updateField("type")}
+						onChange={updateField("purchaseDate")}
 					/>
 				</label>
 				<label>
@@ -44,7 +44,7 @@ const NewOrderForm = () => {
 					<input
 						type="text"
 						value={orderData.buyerId}
-						onChange={updateField("price")}
+						onChange={updateField("buyerId")}
 					/>
 				</label>
 				<label>
@@ -52,7 +52,7 @@ const NewOrderForm = () => {
 					<input
 						type="text"
 						value={orderData.productId}
-						onChange={updateField("expiration")}
+						onChange={updateField("productId")}
 					/>
 				</label>
 

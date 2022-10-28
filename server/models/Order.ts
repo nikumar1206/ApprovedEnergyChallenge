@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, OneToOne, Property } from "@mikro-orm/core";
+import { Cascade, Entity, ManyToOne, Property } from "@mikro-orm/core";
 import { BaseEntity } from "./Base";
 import Customer from "./Customer";
 import Product from "./Product";
@@ -11,9 +11,9 @@ export default class Order extends BaseEntity {
 	@Property()
 	purchaseDate!: Date;
 
-	@ManyToOne(() => Customer)
+	@ManyToOne(() => Customer, { cascade: [Cascade.ALL] })
 	buyer!: Customer;
 
-	@OneToOne(() => Product)
+	@ManyToOne(() => Product, { cascade: [Cascade.ALL] })
 	product!: Product;
 }

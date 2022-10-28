@@ -66,7 +66,7 @@ const TableComponent = ({ data, headers }: any) => {
 					<td>{val.price}</td>
 					<td>{val.expiration}</td>
 					<td>
-						<pre>{JSON.stringify(val.buyer.id, null, 2)}</pre>
+						<pre>{JSON.stringify(val.buyer?.id, null, 2)}</pre>
 					</td>
 				</tr>
 			);
@@ -77,7 +77,7 @@ const TableComponent = ({ data, headers }: any) => {
 					<td>{val.quantity}</td>
 					<td>{val.purchaseDate}</td>
 					<td>{val.buyer.id}</td>
-					<td>{val.product}</td>
+					<td>{val.product.id}</td>
 				</tr>
 			);
 	};

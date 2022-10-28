@@ -6,16 +6,18 @@ import Order from "./models/Order";
 import Product from "./models/Product";
 
 export const DI = {} as DatabaseInterface;
+
 export const setupDB = async () => {
 	DI.orm = await MikroORM.init(mikroOrmConfig);
 	DI.em = DI.orm.em.fork();
 	DI.customerRepository = DI.em.getRepository(Customer);
 	DI.productRepository = DI.em.getRepository(Product);
 	DI.orderRepository = DI.em.getRepository(Order);
+	// allows us to export our entity manager so it can be used in our routes
 
 	const generator = DI.orm.getSchemaGenerator();
-	await generator.updateSchema();
-	DI.orm.getMigrator().up(); // run migrations
+	await generator.updateSchema(); // update schema if necessary
+	DI.orm.getMigrator().up(); // run migrations if necessary
 };
 
 export default setupDB;
