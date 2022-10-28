@@ -1,16 +1,19 @@
 import e from "cors";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteOrder, fetchOrder, updateOrder } from "../utils/order_api";
+import { deleteOrder, fetchOrder, updateOrder } from "../../utils/order_api";
+import { orderType } from "../../utils/types";
 const EditOrderForm = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const [orderData, setorderData] = useState({
+
+	const [orderData, setorderData] = useState<any>({
 		quantity: "",
 		purchaseDate: "",
-		buyer: { id: "n/a" },
+		buyer: "n/a",
 		product: "",
 	});
+
 	useEffect(() => {
 		fetchOrder(parseInt(id!)).then((res) => setorderData(res!.data));
 	}, []);
@@ -30,7 +33,6 @@ const EditOrderForm = () => {
 	return (
 		<>
 			<h1>Edit order id: {id}</h1>
-			{console.log(orderData)}
 			<form className="add-customer-form" onSubmit={handleSubmit}>
 				<label>
 					Quantity
@@ -52,16 +54,16 @@ const EditOrderForm = () => {
 					Buyer ID
 					<input
 						type="text"
-						value={orderData.buyer?.id}
-						onChange={updateField("buyerId")}
+						value={orderData.buyer.id}
+						onChange={updateField("buyer")}
 					/>
 				</label>
 				<label>
 					Product ID
 					<input
 						type="text"
-						value={orderData.product}
-						onChange={updateField("productId")}
+						value={orderData.product.id}
+						onChange={updateField("product")}
 					/>
 				</label>
 

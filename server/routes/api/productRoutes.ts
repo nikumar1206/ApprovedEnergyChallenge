@@ -12,19 +12,27 @@ productRouter.get("/", async (_, res) => {
 
 productRouter.post("/new", async (req, res) => {
 	const newproduct = DI.productRepository.create(req.body);
+	console.log(newproduct);
+
 	try {
 		await DI.em.persistAndFlush(newproduct);
 	} catch (error) {
-		return res.json(error).status(400);
+		return res.json(error).status(200);
 	}
-	return res.json(newproduct).status(400);
+	return res.json(newproduct).status(200);
 });
 
 productRouter.get("/:id", async (req, res) => {
-	const product = await DI.productRepository.findOne({
-		id: parseInt(req.params.id),
-	});
-	return res.json(product).status(400);
+	try {
+		const product = await DI.productRepository.findOneOrFail({
+			id: parseInt(req.params.id),
+		});
+		return res.json(product).status(200);
+	} catch (error) {
+		return res.json({
+			error: `Could not find product with id ${req.params.id}`,
+		});
+	}
 });
 
 productRouter.patch("/:id", async (req, res) => {
@@ -56,7 +64,7 @@ productRouter.delete("/:id", async (req, res) => {
 			error: `Could not find a product with an id of ${req.params.id}`,
 		});
 	}
-	return res.json("Successfully deleted product!").status(400);
+	return res.json("Successfully deleted product!").status(200);
 });
 
 export default productRouter;

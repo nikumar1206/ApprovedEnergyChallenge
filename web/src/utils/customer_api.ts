@@ -1,10 +1,6 @@
 import axios from "axios";
-interface customerData {
-	name: string;
-	email: string;
-	address: string;
-	phone: string;
-}
+import { customerType } from "./types";
+
 axios.defaults.baseURL = "http://localhost:5001/";
 export const fetchAllCustomers = async () => {
 	try {
@@ -24,10 +20,8 @@ export const fetchCustomer = async (id: number) => {
 	}
 };
 
-export const createCustomer = async (customer: customerData) => {
+export const createCustomer = async (customer: customerType) => {
 	try {
-		console.log(customer);
-
 		const data = await axios.post(`/api/customers/new`, customer);
 
 		return data;
@@ -36,7 +30,7 @@ export const createCustomer = async (customer: customerData) => {
 	}
 };
 
-export const updateCustomer = async (id: number, customer: customerData) => {
+export const updateCustomer = async (id: number, customer: customerType) => {
 	try {
 		const data = await axios.patch(`/api/customers/${id}`, customer);
 		return data;

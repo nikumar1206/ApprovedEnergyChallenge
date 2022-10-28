@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeComponent from "./components/homeComponent";
-import CustomerComponent from "./components/customerComponent";
-import ProductComponent from "./components/productComponent";
-import OrderComponent from "./components/orderComponent";
+import CustomerComponent from "./components/customer/customerComponent";
+import ProductComponent from "./components/product/productComponent";
+import OrderComponent from "./components/order/orderComponent";
 import NavComponent from "./components/navComponent";
-import NewCustomerForm from "./components/newCustomerForm";
-import EditCustomerForm from "./components/editCustomerForm";
-import NewProductForm from "./components/newProductForm";
-import EditProductForm from "./components/editProductForm";
-import NewOrderForm from "./components/newOrderForm";
-import EditOrderForm from "./components/editOrderForm";
+import NewCustomerForm from "./components/customer/newCustomerForm";
+import EditCustomerForm from "./components/customer/editCustomerForm";
+import NewProductForm from "./components/product/newProductForm";
+import EditProductForm from "./components/product/editProductForm";
+import NewOrderForm from "./components/order/newOrderForm";
+import EditOrderForm from "./components/order/editOrderForm";
 
 const App = () => {
 	return (

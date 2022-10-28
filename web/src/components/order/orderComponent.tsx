@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchAllOrders } from "../utils/order_api";
-import TableComponent from "./tableComponent";
+import { fetchAllOrders } from "../../utils/order_api";
+import TableComponent from "../tableComponent";
 
 const OrderComponent = () => {
 	const [data, setData] = useState(null);

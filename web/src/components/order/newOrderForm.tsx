@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createOrder } from "../utils/order_api";
+import { createOrder } from "../../utils/order_api";
 const NewOrderForm = () => {
 	const navigate = useNavigate();
 	const [orderData, setorderData] = useState({
 		quantity: "",
 		purchaseDate: "",
-		buyerId: "",
-		productId: "",
+		buyer: "",
+		product: "",
 	});
 
 	const updateField = (field: string) => {
@@ -43,7 +43,7 @@ const NewOrderForm = () => {
 					Buyer ID
 					<input
 						type="text"
-						value={orderData.buyerId}
+						value={orderData.buyer}
 						onChange={updateField("buyerId")}
 					/>
 				</label>
@@ -51,7 +51,7 @@ const NewOrderForm = () => {
 					Product ID
 					<input
 						type="text"
-						value={orderData.productId}
+						value={orderData.product}
 						onChange={updateField("productId")}
 					/>
 				</label>

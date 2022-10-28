@@ -1,11 +1,5 @@
 import axios from "axios";
-
-interface orderData {
-	quantity: string;
-	purchaseDate: string;
-	buyerId: string;
-	productId: string;
-}
+import { orderType } from "./types";
 
 export const fetchAllOrders = async () => {
 	try {
@@ -25,7 +19,7 @@ export const fetchOrder = async (id: number) => {
 	}
 };
 
-export const createOrder = async (order: orderData) => {
+export const createOrder = async (order: orderType) => {
 	try {
 		const data = await axios.post(`/api/orders/new`, order);
 		return data;
@@ -34,7 +28,7 @@ export const createOrder = async (order: orderData) => {
 	}
 };
 
-export const updateOrder = async (id: number, order: any) => {
+export const updateOrder = async (id: number, order: orderType) => {
 	try {
 		const data = await axios.patch(`/api/orders/${id}`, order);
 		return data;

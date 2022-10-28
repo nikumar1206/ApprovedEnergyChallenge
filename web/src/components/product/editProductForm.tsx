@@ -1,14 +1,23 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createProduct } from "../utils/product_api";
-const NewProductForm = () => {
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+	deleteProduct,
+	fetchProduct,
+	updateProduct,
+} from "../../utils/product_api";
+const EditProductForm = () => {
+	const { id } = useParams();
 	const navigate = useNavigate();
+
 	const [productData, setproductData] = useState({
 		name: "",
 		type: "",
 		price: "",
 		expiration: "",
 	});
+	useEffect(() => {
+		fetchProduct(parseInt(id!)).then((res) => setproductData(res!.data));
+	}, []);
 
 	const updateField = (field: string) => {
 		return (e: React.FormEvent<HTMLInputElement>): void =>
@@ -16,12 +25,17 @@ const NewProductForm = () => {
 	};
 	const handleSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		await createProduct(productData).then(() => navigate("/products"));
+		await updateProduct(parseInt(id!), productData).then(() =>
+			navigate("/products")
+		);
 	};
-
+	const handleDelete = async (e: React.SyntheticEvent) => {
+		e.preventDefault();
+		deleteProduct(parseInt(id!)).then(() => navigate("/products"));
+	};
 	return (
 		<>
-			<h1>Add product to database!</h1>
+			<h1>Edit product id: {id}</h1>
 			<form className="add-customer-form" onSubmit={handleSubmit}>
 				<label>
 					Name
@@ -29,7 +43,6 @@ const NewProductForm = () => {
 						type="text"
 						value={productData.name}
 						onChange={updateField("name")}
-						required
 					/>
 				</label>
 				<label>
@@ -38,7 +51,6 @@ const NewProductForm = () => {
 						type="text"
 						value={productData.type}
 						onChange={updateField("type")}
-						required
 					/>
 				</label>
 				<label>
@@ -47,7 +59,6 @@ const NewProductForm = () => {
 						type="text"
 						value={productData.price}
 						onChange={updateField("price")}
-						required
 					/>
 				</label>
 				<label>
@@ -56,13 +67,15 @@ const NewProductForm = () => {
 						type="text"
 						value={productData.expiration}
 						onChange={updateField("expiration")}
-						required
 					/>
 				</label>
 
-				<button type="submit">Create Product!</button>
+				<button type="submit">Update Product!</button>
+				<button type="button" onClick={handleDelete}>
+					Delete Product
+				</button>
 			</form>
 		</>
 	);
 };
-export default NewProductForm;
+export default EditProductForm;

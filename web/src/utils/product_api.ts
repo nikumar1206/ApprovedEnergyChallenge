@@ -1,11 +1,5 @@
 import axios from "axios";
-
-interface productData {
-	name: string;
-	type: string;
-	price: string;
-	expiration: string;
-}
+import { productType } from "./types";
 
 export const fetchAllProducts = async () => {
 	try {
@@ -25,7 +19,7 @@ export const fetchProduct = async (id: number) => {
 	}
 };
 
-export const createProduct = async (product: productData) => {
+export const createProduct = async (product: productType) => {
 	try {
 		const data = await axios.post(`/api/products/new`, product);
 		return data;
@@ -34,7 +28,7 @@ export const createProduct = async (product: productData) => {
 	}
 };
 
-export const updateProduct = async (id: number, product: productData) => {
+export const updateProduct = async (id: number, product: productType) => {
 	try {
 		const data = await axios.patch(`/api/products/${id}`, product);
 		return data;

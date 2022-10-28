@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createCustomer } from "../utils/customer_api";
+import { createCustomer } from "../../utils/customer_api";
+import { customerType } from "../../utils/types";
 const NewCustomerForm = () => {
 	const navigate = useNavigate();
-	const [customerData, setCustomerData] = useState({
+	const [customerData, setCustomerData] = useState<customerType>({
 		name: "",
 		email: "",
 		phone: "",

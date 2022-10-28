@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
-const TableComponent = ({ data, headers }: any) => {
+const TableComponent = ({
+	data,
+	headers,
+}: {
+	data: Array<Object>;
+	headers: string;
+}) => {
 	const navigate = useNavigate();
 	const customerHeaders = [
 		"id",
@@ -33,7 +39,7 @@ const TableComponent = ({ data, headers }: any) => {
 		else return productHeaders;
 	};
 
-	const filterAssociations = (association: any) => {
+	const filterAssociations = (association: Array<Object>) => {
 		return association.map((data: any) => data.id);
 	};
 	const determineTableData = (val: any) => {
@@ -63,7 +69,7 @@ const TableComponent = ({ data, headers }: any) => {
 					<td>{val.id}</td>
 					<td>{val.name}</td>
 					<td>{val.type}</td>
-					<td>{val.price}</td>
+					<td>${val.price}</td>
 					<td>{val.expiration}</td>
 					<td>
 						<pre>{JSON.stringify(val.buyer?.id, null, 2)}</pre>

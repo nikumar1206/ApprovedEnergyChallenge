@@ -5,7 +5,8 @@ import {
 	deleteCustomer,
 	fetchCustomer,
 	updateCustomer,
-} from "../utils/customer_api";
+} from "../../utils/customer_api";
+import { customerType } from "../../utils/types";
 const EditCustomerForm = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -14,7 +15,7 @@ const EditCustomerForm = () => {
 		fetchCustomer(parseInt(id!)).then((res) => setCustomerData(res!.data));
 	}, []);
 
-	const [customerData, setCustomerData] = useState({
+	const [customerData, setCustomerData] = useState<customerType>({
 		name: "",
 		email: "",
 		phone: "",

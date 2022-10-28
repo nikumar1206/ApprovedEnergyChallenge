@@ -18,6 +18,7 @@ export default {
 		glob: "!(*.d).{js,ts}",
 	},
 	metadataProvider: ReflectMetadataProvider,
+	validate: true,
 	entities: [BaseEntity, Product, Customer, Order],
 	dbName: "ApprovedEnergyChallenge543",
 	type: "postgresql",
