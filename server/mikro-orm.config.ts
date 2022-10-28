@@ -19,8 +19,8 @@ export default {
 	},
 	metadataProvider: ReflectMetadataProvider,
 	entities: [BaseEntity, Product, Customer, Order],
-	dbName: process.env.DB_NAME,
-	type: process.env.DB_TYPE,
-	debug: !__prod__,
+	dbName: "ApprovedEnergyChallenge543",
+	type: "postgresql",
+	debug: true,
 	snapshot: false,
 } as Parameters<typeof MikroORM.init>[0];

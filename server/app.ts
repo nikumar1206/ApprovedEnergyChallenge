@@ -8,7 +8,7 @@ import orderRouter from "./routes/api/orderRoutes";
 import setupDB from "./setupDB";
 
 const main = async (): Promise<void> => {
-	const port = process.env.PORT;
+	const port = 5001;
 	const app: Application = express();
 
 	app.use(cors());
