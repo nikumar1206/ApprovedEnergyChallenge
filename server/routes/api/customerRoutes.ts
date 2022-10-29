@@ -31,7 +31,10 @@ customerRouter.patch("/:id", async (req, res) => {
 	return res.json("Successfully updated customer!").status(200);
 });
 customerRouter.delete("/:id", async (req, res) => {
-	await DI.customerRepository.nativeDelete({ id: parseInt(req.params.id) });
+	const customer = await DI.customerRepository.findOneOrFail({
+		id: parseInt(req.params.id),
+	});
+	await DI.productRepository.removeAndFlush(customer);
 	return res.json("Successfully deleted customer!").status(200);
 });
 

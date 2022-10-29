@@ -4,7 +4,7 @@ const productRouter = Router();
 
 productRouter.get("/", async (_, res) => {
 	const products = await DI.productRepository.findAll({
-		populate: ["buyer.id", "buyer.name"],
+		populate: ["buyer"],
 		filters: ["createdAt", "updatedAt"],
 	});
 	return res.json(products);
@@ -54,16 +54,10 @@ productRouter.patch("/:id", async (req, res) => {
 });
 
 productRouter.delete("/:id", async (req, res) => {
-	try {
-		const product = await DI.productRepository.findOneOrFail({
-			id: parseInt(req.params.id),
-		});
-		await DI.productRepository.removeAndFlush(product);
-	} catch (error) {
-		return res.json({
-			error: `Could not find a product with an id of ${req.params.id}`,
-		});
-	}
+	const product = await DI.productRepository.findOneOrFail({
+		id: parseInt(req.params.id),
+	});
+	await DI.productRepository.removeAndFlush(product);
 	return res.json("Successfully deleted product!").status(200);
 });
 

@@ -72,7 +72,7 @@ const TableComponent = ({
 					<td>${val.price}</td>
 					<td>{val.expiration}</td>
 					<td>
-						<pre>{JSON.stringify(val.buyer?.id, null, 2)}</pre>
+						<pre>{JSON.stringify(val.buyer?.id)}</pre>
 					</td>
 				</tr>
 			);

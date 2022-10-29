@@ -20,7 +20,6 @@ orderRouter.post("/new", async (req, res) => {
 		const product = await DI.productRepository.findOneOrFail({
 			id: req.body.productId,
 		});
-		product.buyer = newOrder.buyer;
 		newOrder.product = product;
 
 		await DI.em.persistAndFlush(newOrder);

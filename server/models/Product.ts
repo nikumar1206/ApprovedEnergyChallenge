@@ -1,4 +1,5 @@
 import {
+	Cascade,
 	Entity,
 	ManyToOne,
 	OneToMany,
@@ -30,6 +31,7 @@ export default class Product extends BaseEntity {
 	@OneToMany(() => Order, (order) => order.product, {
 		nullable: true,
 		orphanRemoval: true,
+		cascade: [Cascade.PERSIST],
 	})
 	order?: Order;
 }
