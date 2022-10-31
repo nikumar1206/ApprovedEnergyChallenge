@@ -17,7 +17,7 @@ npm i
 3. Run!
 
 ```
-npm dev
+npm run dev
 ```
 
 Notes:

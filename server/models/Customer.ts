@@ -27,5 +27,5 @@ export default class Customer extends BaseEntity {
 	@OneToMany(() => Order, (order) => order.buyer, {
 		orphanRemoval: true,
 	})
-	allOrders = Collection<Order>;
+	allOrders = new Collection<Order>(this);
 }
