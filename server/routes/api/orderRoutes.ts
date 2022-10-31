@@ -15,16 +15,19 @@ orderRouter.post("/new", async (req, res) => {
 	const newOrder = DI.orderRepository.create(req.body);
 	try {
 		newOrder.buyer = await DI.customerRepository.findOneOrFail({
-			id: req.body.buyerId,
+			id: req.body.buyer,
 		});
 		const product = await DI.productRepository.findOneOrFail({
-			id: req.body.productId,
+			id: req.body.product,
 		});
 		newOrder.product = product;
 
 		await DI.em.persistAndFlush(newOrder);
 	} catch (error) {
+		console.log(error);
+
 		return res
+
 			.json({ error: "Could not find either buyer or product" })
 			.status(400);
 	}

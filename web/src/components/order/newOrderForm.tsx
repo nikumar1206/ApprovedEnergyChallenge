@@ -44,7 +44,7 @@ const NewOrderForm = () => {
 					<input
 						type="text"
 						value={orderData.buyer}
-						onChange={updateField("buyerId")}
+						onChange={updateField("buyer")}
 					/>
 				</label>
 				<label>
@@ -52,7 +52,7 @@ const NewOrderForm = () => {
 					<input
 						type="text"
 						value={orderData.product}
-						onChange={updateField("productId")}
+						onChange={updateField("product")}
 					/>
 				</label>
 

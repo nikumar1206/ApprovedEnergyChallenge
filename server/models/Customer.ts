@@ -7,7 +7,6 @@ import {
 } from "@mikro-orm/core";
 import { BaseEntity } from "./Base";
 import Order from "./Order";
-import Product from "./Product";
 
 @Entity()
 export default class Customer extends BaseEntity {
@@ -25,11 +24,8 @@ export default class Customer extends BaseEntity {
 	@Unique()
 	phone!: string;
 
-	@OneToMany(() => Product, (product) => product.buyer)
-	ownedProducts = new Collection<Product>(this);
-
 	@OneToMany(() => Order, (order) => order.buyer, {
 		orphanRemoval: true,
 	})
-	allOrders = new Collection<Order>(this);
+	allOrders = Collection<Order>;
 }

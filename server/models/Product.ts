@@ -1,13 +1,11 @@
 import {
-	Cascade,
+	Collection,
 	Entity,
-	ManyToOne,
 	OneToMany,
 	Property,
 	Unique,
 } from "@mikro-orm/core";
 import { BaseEntity } from "./Base";
-import Customer from "./Customer";
 import Order from "./Order";
 
 @Entity()
@@ -25,13 +23,8 @@ export default class Product extends BaseEntity {
 	@Property()
 	expiration!: Date;
 
-	@ManyToOne(() => Customer, { nullable: true })
-	buyer?: Customer;
-
 	@OneToMany(() => Order, (order) => order.product, {
-		nullable: true,
 		orphanRemoval: true,
-		cascade: [Cascade.PERSIST],
 	})
-	order?: Order;
+	allOrders = Collection<Order>;
 }

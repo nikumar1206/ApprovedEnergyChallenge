@@ -4,7 +4,7 @@ const productRouter = Router();
 
 productRouter.get("/", async (_, res) => {
 	const products = await DI.productRepository.findAll({
-		populate: ["buyer"],
+		populate: ["allOrders"],
 		filters: ["createdAt", "updatedAt"],
 	});
 	return res.json(products);
@@ -12,8 +12,6 @@ productRouter.get("/", async (_, res) => {
 
 productRouter.post("/new", async (req, res) => {
 	const newproduct = DI.productRepository.create(req.body);
-	console.log(newproduct);
-
 	try {
 		await DI.em.persistAndFlush(newproduct);
 	} catch (error) {
@@ -24,9 +22,15 @@ productRouter.post("/new", async (req, res) => {
 
 productRouter.get("/:id", async (req, res) => {
 	try {
-		const product = await DI.productRepository.findOneOrFail({
-			id: parseInt(req.params.id),
-		});
+		const product = await DI.productRepository.findOneOrFail(
+			{
+				id: parseInt(req.params.id),
+			},
+			{
+				populate: ["allOrders"],
+			}
+		);
+
 		return res.json(product).status(200);
 	} catch (error) {
 		return res.json({
@@ -40,6 +44,7 @@ productRouter.patch("/:id", async (req, res) => {
 		const product = await DI.productRepository.findOneOrFail({
 			id: parseInt(req.params.id),
 		});
+
 		DI.em.assign(product!, { ...req.body }, { mergeObjects: true });
 		await DI.em.flush();
 		return res.json({

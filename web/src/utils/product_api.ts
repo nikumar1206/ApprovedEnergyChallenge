@@ -4,9 +4,6 @@ import { productType } from "./types";
 export const fetchAllProducts = async () => {
 	try {
 		const data = await axios.get("/api/products");
-		{
-			console.log(data.data);
-		}
 		return data;
 	} catch (error) {
 		console.log(error);

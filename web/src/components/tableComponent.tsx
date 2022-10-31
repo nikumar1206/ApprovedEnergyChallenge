@@ -15,16 +15,8 @@ const TableComponent = ({
 		"phone",
 		"address",
 		"allOrders",
-		"ownedProducts",
 	];
-	const productHeaders = [
-		"id",
-		"name",
-		"type",
-		"price",
-		"expiration",
-		"buyerId",
-	];
+	const productHeaders = ["id", "name", "type", "price", "expiration"];
 	const orderHeaders = [
 		"id",
 		"quantity",
@@ -56,11 +48,6 @@ const TableComponent = ({
 							{JSON.stringify(filterAssociations(val.allOrders), null, 2)}
 						</pre>
 					</td>
-					<td>
-						<pre>
-							{JSON.stringify(filterAssociations(val.ownedProducts), null, 2)}
-						</pre>
-					</td>
 				</tr>
 			);
 		else if (headers == "productHeaders")
@@ -71,9 +58,6 @@ const TableComponent = ({
 					<td>{val.type}</td>
 					<td>${val.price}</td>
 					<td>{val.expiration}</td>
-					<td>
-						<pre>{JSON.stringify(val.buyer?.id)}</pre>
-					</td>
 				</tr>
 			);
 		else
