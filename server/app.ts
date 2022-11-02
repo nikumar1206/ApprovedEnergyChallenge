@@ -7,6 +7,7 @@ import customerRouter from "./routes/api/customerRoutes";
 import productRouter from "./routes/api/productRoutes";
 import orderRouter from "./routes/api/orderRoutes";
 import setupDB from "./setupDB";
+import path from "path";
 
 dotenv.config();
 
@@ -26,8 +27,11 @@ const main = async (): Promise<void> => {
 
 	app.listen(port, () => console.log(`🚀 Server is running on port ${port}!`));
 
-	if (process.execArgv.length === 0) {
-		process.exit(0);
+	if (process.env.NODE_ENV === "production") {
+		app.use(express.static("frontend/build"));
+		app.get("/", (_, res) => {
+			res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+		});
 	}
 };
 

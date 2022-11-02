@@ -9,8 +9,7 @@
 		"start": "node dist/app.js",
 		"server": "nodemon -r dotenv/config dist/app.js",
 		"setupDB": "dropdb 'ApprovedEnergyChallenge543' --if-exists && npx mikro-orm database:create && node dist/app.js && npx mikro-orm migration:create && npx mikro-orm migration:up && npx mikro-orm seeder:run",
-		"preinstall": "npm --prefix ./web install ./web",
-		"postinstall": "tsc -b",
+		"preinstall": "tsc -b && npm --prefix ./web install ./web",
 		"dev": "concurrently \"npm run watch\" \"npm run server\" \"npm run dev --prefix web\""
 	},
 	"keywords": [],
