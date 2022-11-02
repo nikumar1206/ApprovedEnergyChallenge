@@ -11,8 +11,7 @@
 		"setupDB": "dropdb 'ApprovedEnergyChallenge543' --if-exists && npx mikro-orm database:create && node dist/app.js && npx mikro-orm migration:create && npx mikro-orm migration:up && npx mikro-orm seeder:run",
 		"preinstall": "npm --prefix ./web install ./web",
 		"postinstall": "tsc -b",
-		"dev": "concurrently \"npm run watch\" \"npm run server\" \"npm run dev --prefix web\"",
-		"build": "npm run build --configuration=production"
+		"dev": "concurrently \"npm run watch\" \"npm run server\" \"npm run dev --prefix web\""
 	},
 	"keywords": [],
 	"author": "",
