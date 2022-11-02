@@ -6,11 +6,13 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"watch": "tsc -w",
+		"start": "node dist/app.js",
 		"server": "nodemon -r dotenv/config dist/app.js",
 		"setupDB": "dropdb 'ApprovedEnergyChallenge543' --if-exists && npx mikro-orm database:create && node dist/app.js && npx mikro-orm migration:create && npx mikro-orm migration:up && npx mikro-orm seeder:run",
 		"preinstall": "npm --prefix ./web install ./web",
-		"postinstall": "tsc -b && npm run setupDB",
-		"dev": "concurrently \"npm run watch\" \"npm run server\" \"npm run dev --prefix web\""
+		"postinstall": "tsc -b",
+		"dev": "concurrently \"npm run watch\" \"npm run server\" \"npm run dev --prefix web\"",
+		"build": "npm run build --configuration=production"
 	},
 	"keywords": [],
 	"author": "",

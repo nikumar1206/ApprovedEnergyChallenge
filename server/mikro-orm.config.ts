@@ -22,6 +22,6 @@ export default {
 	entities: [BaseEntity, Product, Customer, Order],
 	dbName: "ApprovedEnergyChallenge543",
 	type: "postgresql",
-	debug: true,
+	debug: !__prod__,
 	snapshot: false,
 } as Parameters<typeof MikroORM.init>[0];
