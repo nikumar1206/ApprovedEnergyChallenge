@@ -30,7 +30,7 @@ const main = async (): Promise<void> => {
 	if (process.env.NODE_ENV === "production") {
 		app.use(express.static("web/dist"));
 		app.get("/", (_, res) => {
-			res.sendFile(path.resolve(__dirname, "web", "dist", "index.html"));
+			res.sendFile(path.resolve(__dirname, "index.html"));
 		});
 	}
 };
