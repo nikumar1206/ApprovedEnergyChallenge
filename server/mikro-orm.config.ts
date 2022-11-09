@@ -20,8 +20,12 @@ export default {
 	metadataProvider: ReflectMetadataProvider,
 	validate: true,
 	entities: [BaseEntity, Product, Customer, Order],
-	dbName: "ApprovedEnergyChallenge543",
-	type: "postgresql",
+
 	debug: !__prod__,
 	snapshot: false,
+	type: "postgresql",
+	dbName: "ApprovedEnergyChallenge543",
+	user: "postgres",
+	port: 5631,
+	password: "HRx6FamAIWZW9nieMTfR",
 } as Parameters<typeof MikroORM.init>[0];
