@@ -1,6 +1,4 @@
 import "reflect-metadata"; // required for run-time type reflection
-import dotenv from "dotenv";
-import cors from "cors";
 import bodyParser from "body-parser";
 import express, { Application } from "express";
 import customerRouter from "./routes/api/customerRoutes";
@@ -9,13 +7,11 @@ import orderRouter from "./routes/api/orderRoutes";
 import setupDB from "./setupDB";
 import path from "path";
 
-dotenv.config();
-
 const main = async (): Promise<void> => {
 	const port = process.env.PORT;
+
 	const app: Application = express();
 
-	app.use(cors());
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(bodyParser.json());
 

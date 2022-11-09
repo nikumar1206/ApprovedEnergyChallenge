@@ -21,9 +21,8 @@ export default {
 	validate: true,
 	entities: [BaseEntity, Product, Customer, Order],
 
-	debug: !__prod__,
+	debug: ["query"],
 	snapshot: false,
 	type: "postgresql",
-	clientUrl:
-		"postgresql://postgres:HRx6FamAIWZW9nieMTfR@containers-us-west-57.railway.app:5631/railway",
+	clientUrl: process.env.CLIENT_URL,
 } as Parameters<typeof MikroORM.init>[0];

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { customerType } from "./types";
 
-axios.defaults.baseURL = "http://localhost:5001/";
 export const fetchAllCustomers = async () => {
 	try {
 		const data = await axios.get("/api/customers/");
