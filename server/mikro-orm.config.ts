@@ -24,8 +24,6 @@ export default {
 	debug: !__prod__,
 	snapshot: false,
 	type: "postgresql",
-	dbName: "ApprovedEnergyChallenge543",
-	user: "postgres",
-	port: 5631,
-	password: "HRx6FamAIWZW9nieMTfR",
+	clientUrl:
+		"postgresql://postgres:HRx6FamAIWZW9nieMTfR@containers-us-west-57.railway.app:5631/railway",
 } as Parameters<typeof MikroORM.init>[0];

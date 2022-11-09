@@ -15,8 +15,8 @@ export const setupDB = async () => {
 	DI.orderRepository = DI.em.getRepository(Order);
 	// allows us to export our entity manager so it can be used in our routes
 
-	const generator = DI.orm.getSchemaGenerator();
-	await generator.updateSchema(); // update schema if necessary
+	// const generator = DI.orm.getSchemaGenerator();
+	// await generator.updateSchema(); // update schema if necessary
 	DI.orm.getMigrator().up(); // run migrations if necessary
 };
 
