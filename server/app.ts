@@ -13,7 +13,6 @@ import path from "path";
 
 const main = async (): Promise<void> => {
 	const port = process.env.PORT;
-
 	const app: Application = express();
 
 	app.use(bodyParser.urlencoded({ extended: true }));
