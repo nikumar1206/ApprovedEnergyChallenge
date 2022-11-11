@@ -1,4 +1,8 @@
 import "reflect-metadata"; // required for run-time type reflection
+
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import bodyParser from "body-parser";
 import express, { Application } from "express";
 import customerRouter from "./routes/api/customerRoutes";
