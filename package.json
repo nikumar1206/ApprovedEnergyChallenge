@@ -10,7 +10,7 @@
 		"server": "nodemon dist/app.js",
 		"setupDB": "npx mikro-orm migration:create && npx mikro-orm migration:up && npx mikro-orm seeder:run",
 		"preinstall": "tsc -b && npm --prefix ./web install ./web",
-		"railway-build": "concurrently \"npm run watch\" \"npm run server\" \"npm run build --prefix web\"",
+		"railway-build": "concurrently \"npm run watch\" \"npm run start\" \"npm run build --prefix web\"",
 		"dev": "concurrently \"npm run watch\" \"npm run server\" \"npm run dev --prefix web\""
 	},
 	"keywords": [],
